@@ -4,9 +4,46 @@ import Image from 'next/image';
 import styles from './page.module.css';
 import styled from 'styled-components';
 import {Row, Grid, Col, Container} from 'bear-react-grid';
-
+import {useState} from 'react';
+import {IPaginateMeta, TOnChangePage} from 'bear-react-table';
+import {data, IPaginateData} from '@/config/data';
+import Table, {getPageData} from '@/components/Table';
 
 export default function Home() {
+
+    const [isFetching, setIsFetching] = useState(false);
+    const [paginateMeta, setPaginateMeta] = useState<IPaginateMeta>({
+        currentPage: 1,
+        pageLimit: 8,
+        order: {
+            orderField: 'id',
+            orderBy: 'DESC',
+        }
+    });
+    const [paginateData, setPaginateData] = useState<IPaginateData[]>(getPageData(paginateMeta.currentPage, paginateMeta.pageLimit));
+
+    const paginateInfo = {
+        totalItems: data.length,
+        totalPages: Math.ceil(data.length / paginateMeta.pageLimit),
+    };
+
+
+    /**
+     * 查詢分頁
+     */
+    const handleFetchPaginate: TOnChangePage = (meta) => {
+        // 取得查詢項目
+        setIsFetching(true);
+        // console.log('meta', meta);
+        setPaginateMeta(meta);
+
+        const {currentPage, pageLimit, order} = meta;
+
+        setTimeout(() => {
+            setPaginateData(getPageData(currentPage, pageLimit, order));
+            setIsFetching(false);
+        }, 400);
+    };
 
     const renderMain = () => {
         return <Grid columns="1fr auto 1fr" className="align-items-center mb-5">
@@ -21,7 +58,7 @@ export default function Home() {
                     priority
                 />
                 <Title>
-                    Bear React Grid
+                    Bear React Table
                 </Title>
             </div>
 
@@ -63,23 +100,49 @@ export default function Home() {
             },
         ]
 
-        return <Grid columns={4}>
-
-            {data.map(row => {
-                return <a key={row.text}
-                    href={row.url}
-                    className={styles.card}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-                    <h2>
-                        {row.text} <span>-&gt;</span>
-                    </h2>
-                    <p>{row.desc}</p>
-                </a>
+        return <Table
+            isDark
+            gap="8px"
+            isFetching={isFetching}
+            isStickyHeader
+            isEnableChangePageScrollTop={false}
+            title={{
+                plus:     {text: '',       col: 50,      titleAlign: 'center', dataAlign: 'center'},
+                avatar:   {text: '#',      col: 50,      titleAlign: 'center', dataAlign: 'center'},
+                name:     {text: 'Name',   col: 'auto',  isEnableSort: true},
+                role:     {text: 'Role',   col: '120px'},
+                joined:  {text: 'Joined',  col: '80px'},
+            }}
+            footer={{
+                name: {value: 'Total'},
+            }}
+            data={paginateData.map(row => {
+                return {
+                    id: row.id,
+                    detail: <>
+                        <div>{row.name}</div>
+                        <div>{row.amount}</div>
+                        <div>{row.role}</div>
+                    </>,
+                    onClickRow: () => console.log(`click row id: ${row.id}`),
+                    field: {
+                        plus: (args) => <CollapseButton
+                            type="button" onClick={args.collapse}
+                            data-active={args.isActive ? '':undefined}
+                        >
+                            {args.isActive ? '-': '+'}
+                        </CollapseButton>,
+                        avatar: <Avatar src={row.avatar}/>,
+                        name: row.name,
+                        role: row.role,
+                        joined: row.isJoined ? 'Y':'N',
+                    },
+                };
             })}
-
-        </Grid>;
+            onChangePage={handleFetchPaginate}
+            paginateMeta={paginateMeta}
+            paginateInfo={paginateInfo}
+        />;
     }
 
 
@@ -105,4 +168,36 @@ const Add = styled.div`
   :after {
     content: '+';
   }
+`;
+
+
+const Avatar = styled.img`
+  border-radius: 99em;
+  overflow: hidden;
+  width: 20px;
+  height: 20px;
+`;
+
+
+
+
+const CollapseButton = styled.button`
+    width: 20px;
+    height: 20px;
+    background-color: #535bf2;
+    border-radius: 4px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+
+    outline: none;
+    box-shadow: none;
+    border: none;
+    color: #fff;
+
+    &[data-active] {
+        background-color: #f25353;
+    }
 `;

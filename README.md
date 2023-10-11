@@ -1,8 +1,8 @@
-# Bear React Grid By NextJS
+# Bear React Table By NextJS
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-add package [Bear React Grid](https://bear-react-grid.github.io/)
+add package [Bear React Table](https://bear-react-grid.github.io/)
 
 ## Add this step
 

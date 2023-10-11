@@ -7,7 +7,7 @@ import {GridThemeProvider, TGridTheme} from 'bear-react-grid';
 
 const gridTheme: TGridTheme = {
     spacer: '1rem',
-    gridGutterWidth: '.625rem',
+    gutter: '.625rem',
     gridColumns: 24,
     gridBreakpoints: {
         xs: 0,
@@ -18,7 +18,6 @@ const gridTheme: TGridTheme = {
         xxl: 1540,
     },
     containerMaxWidths: {
-        xs: 540,
         sm: 540,
         md: 720,
         lg: 960,
