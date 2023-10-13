@@ -17,7 +17,7 @@
     "@types/react-dom": "18.2.7",
     "@types/styled-components": "^5.1.27",
     "bear-react-grid": "5.0.5",
-    "bear-react-table": "4.3.4-alpha.5",
+    "bear-react-table": "4.3.4",
     "eslint": "8.49.0",
     "eslint-config-next": "13.4.19",
     "next": "13.4.19",

@@ -621,10 +621,10 @@ bear-react-grid@5.0.5:
   resolved "https://registry.yarnpkg.com/bear-react-grid/-/bear-react-grid-5.0.5.tgz#d1a1a9dac608b1ed316523f840db649cd0478a98"
   integrity sha512-asrULvoVIRrtXRqWNaa7fbZy9WYtAhG47UqCeSZtyVdwoTObYIc847beWVSelqUn3N/ffWcyMgic5hyMi4NiCw==
 
-bear-react-table@4.3.4-alpha.5:
-  version "4.3.4-alpha.5"
-  resolved "https://registry.yarnpkg.com/bear-react-table/-/bear-react-table-4.3.4-alpha.5.tgz#d0fc58d3fbb34aaad9303082b6a49d5b5772e6f9"
-  integrity sha512-GcK6vG/kMNJqJFa9lwoDMCXotvgbhm6EF9dk+YhAp0fJouTCCJBLBeELprdO87M61H0u4GR/Qw60iYx8xzJbOg==
+bear-react-table@4.3.4:
+  version "4.3.4"
+  resolved "https://registry.yarnpkg.com/bear-react-table/-/bear-react-table-4.3.4.tgz#676a8b6bfb17c4109d10e4ffce6652748676ec8d"
+  integrity sha512-K0L5G811wM5A3WFS34RqZMHcySJ1ScYLyk5FD1rRW5W+5A+Tny4q3NQx2qwf5Hcg1GDPNzBtxRQJe6wZt7iYoQ==
   dependencies:
     react "^18.x"
     react-dom "^18.x"
